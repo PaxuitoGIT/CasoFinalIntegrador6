@@ -1,6 +1,6 @@
 package CasoIntegrador.DatosDinamicos;
 
-public class Pareja<A,B> {
+public class Pareja<A,B> { // Se define una clase genérica con dos parámetros de tipo
     private A primerElemento;
     private B segundoElemento;
 
