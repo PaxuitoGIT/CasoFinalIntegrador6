@@ -10,34 +10,34 @@ import java.util.*;
 import java.util.List;
 
 public class OrdenacionYBusqueda extends JFrame {
-     JTable nombresTable;
-     JTable ventasTable;
-     DefaultTableModel nombresTableModel;
-     DefaultTableModel ventasTableModel;
-     boolean ordenarPorProducto = true;
-     boolean ordenarNombresAscendente = true;
+     JTable nombresTable, ventasTable;
+     JPanel contentPane, nombresPanel, ventasPanel;
+     JScrollPane nombresScrollPane, ventasScrollPane;
+     DefaultTableModel nombresTableModel, ventasTableModel;
+     boolean ordenarPorProducto, ordenarNombresAscendente = true;
+     JButton agregarNombreButton, cambiarOrdenNombresButton, agregarVentaButton, cambiarOrdenVentasButton;
 
     public OrdenacionYBusqueda() {
         setTitle("Ordenación y Búsqueda");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 300));
 
-        JPanel contentPane = new JPanel();
+        contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setLayout(new GridLayout(1, 2));
 
         // Panel para los nombres
-        JPanel nombresPanel = new JPanel(new BorderLayout());
+        nombresPanel = new JPanel(new BorderLayout());
         nombresPanel.setBorder(BorderFactory.createTitledBorder("Nombres"));
 
         nombresTableModel = new DefaultTableModel();
         nombresTableModel.addColumn("Nombres");
 
         nombresTable = new JTable(nombresTableModel);
-        JScrollPane nombresScrollPane = new JScrollPane(nombresTable);
+        nombresScrollPane = new JScrollPane(nombresTable);
         nombresPanel.add(nombresScrollPane, BorderLayout.CENTER);
 
-        JButton agregarNombreButton = new JButton("Agregar Nombre");
+        agregarNombreButton = new JButton("Agregar Nombre");
         agregarNombreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -46,7 +46,7 @@ public class OrdenacionYBusqueda extends JFrame {
         });
         nombresPanel.add(agregarNombreButton, BorderLayout.SOUTH);
 
-        JButton cambiarOrdenNombresButton = new JButton("Cambiar Orden");
+        cambiarOrdenNombresButton = new JButton("Cambiar Orden");
         cambiarOrdenNombresButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -58,7 +58,7 @@ public class OrdenacionYBusqueda extends JFrame {
         contentPane.add(nombresPanel);
 
         // Panel para las ventas
-        JPanel ventasPanel = new JPanel(new BorderLayout());
+        ventasPanel = new JPanel(new BorderLayout());
         ventasPanel.setBorder(BorderFactory.createTitledBorder("Ventas"));
 
         ventasTableModel = new DefaultTableModel();
@@ -66,10 +66,10 @@ public class OrdenacionYBusqueda extends JFrame {
         ventasTableModel.addColumn("Cantidad");
 
         ventasTable = new JTable(ventasTableModel);
-        JScrollPane ventasScrollPane = new JScrollPane(ventasTable);
+        ventasScrollPane = new JScrollPane(ventasTable);
         ventasPanel.add(ventasScrollPane, BorderLayout.CENTER);
 
-        JButton agregarVentaButton = new JButton("Agregar Venta");
+        agregarVentaButton = new JButton("Agregar Venta");
         agregarVentaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -78,7 +78,7 @@ public class OrdenacionYBusqueda extends JFrame {
         });
         ventasPanel.add(agregarVentaButton, BorderLayout.SOUTH);
 
-        JButton cambiarOrdenVentasButton = new JButton("Cambiar Orden");
+        cambiarOrdenVentasButton = new JButton("Cambiar Orden");
         cambiarOrdenVentasButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
