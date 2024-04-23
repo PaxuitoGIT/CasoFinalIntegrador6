@@ -4,6 +4,7 @@ import CasoIntegrador.IndexacionyVisualizacion.IndexacionArchivos;
 import CasoIntegrador.AnalisisyOrganizacion.OrdenacionYBusqueda;
 import CasoIntegrador.DatosDinamicos.GUI;
 import CasoIntegrador.AnalisisyOrganizacion.AnalisisRegistros;
+import CasoIntegrador.MapasyAsociacion.GestionRelaciones;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,14 +17,15 @@ public class Main extends JFrame {
     private OrdenacionYBusqueda ordenacionYBusqueda;
     private GUI datosDinamicos;
     private AnalisisRegistros analisisRegistros;
+    private GestionRelaciones gestionRelaciones;
 
     public Main() {
         setTitle("Menú Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setPreferredSize(new Dimension(400, 200));
+        setPreferredSize(new Dimension(400, 300));
 
         JPanel contentPane = new JPanel();
-        contentPane.setLayout(new GridLayout(4, 1));
+        contentPane.setLayout(new GridLayout(5, 1));
 
         JButton indexacionButton = new JButton("Indexación y Visualización");
         indexacionButton.addActionListener(new ActionListener() {
@@ -56,6 +58,14 @@ public class Main extends JFrame {
             }
         });
         contentPane.add(analisisRegistrosButton);
+
+        JButton gestionRelacionesButton = new JButton("Gestión de Relaciones");
+        gestionRelacionesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                abrirGestionRelaciones();
+            }
+        });
+        contentPane.add(gestionRelacionesButton);
 
         setContentPane(contentPane);
         pack();
@@ -93,6 +103,15 @@ public class Main extends JFrame {
         }
         analisisRegistros.setVisible(true);
     }
+
+    private void abrirGestionRelaciones() {
+        if (gestionRelaciones == null) {
+            gestionRelaciones = new GestionRelaciones();
+            gestionRelaciones.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        }
+        gestionRelaciones.setVisible(true);
+    }
+
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(new Runnable() {
