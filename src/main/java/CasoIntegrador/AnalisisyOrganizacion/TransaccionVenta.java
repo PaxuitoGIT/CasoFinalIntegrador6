@@ -1,10 +1,10 @@
 package CasoIntegrador.AnalisisyOrganizacion;
 
 class TransaccionVenta {
-    private String producto;
-    private int cantidad;
-    private String cliente;
-    private String fecha;
+    String producto;
+    int cantidad;
+    String cliente;
+    String fecha;
 
     public TransaccionVenta(String producto, int cantidad, String cliente, String fecha) {
         this.producto = producto;

@@ -10,20 +10,21 @@ import java.util.*;
 import java.util.List;
 
 public class AnalisisRegistros extends JFrame {
-    private JComboBox<String> filtroClienteComboBox;
-    private JTable transaccionesTable;
-    private DefaultTableModel tableModel;
-    private JTextField productoField;
-    private JTextField cantidadField;
-    private JTextField clienteField;
-    private JTextField fechaField;
+     JComboBox<String> filtroClienteComboBox;
+     JTable transaccionesTable;
+     JPanel contentPane, controlPanel, agregarPanel, filtrarPanel;
+     JScrollPane scrollPane;
+     JLabel filtroClienteLabel, productoLabel, cantidadLabel, clienteLabel, fechaLabel;
+     JButton filtrarButton, mostrarTodoButton, agregarButton, eliminarButton;
+     DefaultTableModel tableModel;
+     JTextField productoField, cantidadField, clienteField, fechaField;
 
     public AnalisisRegistros() {
         setTitle("Análisis de Registros de Ventas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
 
-        JPanel contentPane = new JPanel();
+        contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setLayout(new BorderLayout());
 
@@ -34,20 +35,20 @@ public class AnalisisRegistros extends JFrame {
         tableModel.addColumn("Fecha");
 
         transaccionesTable = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(transaccionesTable);
+        scrollPane = new JScrollPane(transaccionesTable);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
-        JPanel controlPanel = new JPanel();
+        controlPanel = new JPanel();
         controlPanel.setLayout(new BorderLayout());
 
-        JPanel filtrarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JLabel filtroClienteLabel = new JLabel("Filtrar por Cliente:");
+        filtrarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        filtroClienteLabel = new JLabel("Filtrar por Cliente:");
         filtrarPanel.add(filtroClienteLabel);
 
         filtroClienteComboBox = new JComboBox<>();
         filtrarPanel.add(filtroClienteComboBox);
 
-        JButton filtrarButton = new JButton("Filtrar");
+        filtrarButton = new JButton("Filtrar");
         filtrarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -56,7 +57,7 @@ public class AnalisisRegistros extends JFrame {
         });
         filtrarPanel.add(filtrarButton);
 
-        JButton mostrarTodoButton = new JButton("Mostrar Todo");
+        mostrarTodoButton = new JButton("Mostrar Todo");
         mostrarTodoButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -67,37 +68,38 @@ public class AnalisisRegistros extends JFrame {
 
         controlPanel.add(filtrarPanel, BorderLayout.NORTH);
 
-        JPanel agregarPanel = new JPanel(new GridLayout(5, 2, 6, 5));
-        JLabel productoLabel = new JLabel("Producto:");
+        agregarPanel = new JPanel(new GridLayout(5, 2, 6, 5));
+        productoLabel = new JLabel("Producto:");
         agregarPanel.add(productoLabel);
         productoField = new JTextField();
         agregarPanel.add(productoField);
 
-        JLabel cantidadLabel = new JLabel("Cantidad:");
+        cantidadLabel = new JLabel("Cantidad:");
         agregarPanel.add(cantidadLabel);
         cantidadField = new JTextField();
         agregarPanel.add(cantidadField);
 
-        JLabel clienteLabel = new JLabel("Cliente:");
+        clienteLabel = new JLabel("Cliente:");
         agregarPanel.add(clienteLabel);
         clienteField = new JTextField();
         agregarPanel.add(clienteField);
 
-        JLabel fechaLabel = new JLabel("Fecha:");
+        fechaLabel = new JLabel("Fecha:");
         agregarPanel.add(fechaLabel);
         fechaField = new JTextField();
         agregarPanel.add(fechaField);
 
-        JButton agregarButton = new JButton("Agregar");
+        agregarButton = new JButton("Agregar");
         agregarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agregarTransaccion();
+                agregarTransaccion(productoField.getText(), Integer.parseInt(cantidadField.getText()),
+                        clienteField.getText(), fechaField.getText());
             }
         });
         agregarPanel.add(agregarButton);
 
-        JButton eliminarButton = new JButton("Eliminar");
+        eliminarButton = new JButton("Eliminar");
         eliminarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -124,12 +126,12 @@ public class AnalisisRegistros extends JFrame {
         mostrarTodasTransacciones();
     }
 
-    private void mostrarTodasTransacciones() {
+    public void mostrarTodasTransacciones() {
         List<TransaccionVenta> transacciones = obtenerTransacciones();
         mostrarTransacciones(transacciones);
     }
 
-    private void mostrarTransacciones(List<TransaccionVenta> transacciones) {
+    public void mostrarTransacciones(List<TransaccionVenta> transacciones) {
         tableModel.setRowCount(0);
         for (TransaccionVenta transaccion : transacciones) {
             tableModel.addRow(new Object[]{transaccion.getProducto(), transaccion.getCantidad(),
@@ -137,7 +139,7 @@ public class AnalisisRegistros extends JFrame {
         }
     }
 
-    private void filtrarTransacciones() {
+    public void filtrarTransacciones() {
         String clienteSeleccionado = (String) filtroClienteComboBox.getSelectedItem();
         if (clienteSeleccionado != null && !clienteSeleccionado.isEmpty()) {
             List<TransaccionVenta> transaccionesFiltradas = obtenerTransaccionesPorCliente(clienteSeleccionado);
@@ -147,7 +149,7 @@ public class AnalisisRegistros extends JFrame {
         }
     }
 
-    private List<String> obtenerClientesUnicos() {
+    public List<String> obtenerClientesUnicos() {
         List<String> clientesUnicos = new ArrayList<>();
         for (TransaccionVenta transaccion : obtenerTransacciones()) {
             if (!clientesUnicos.contains(transaccion.getCliente())) {
@@ -157,7 +159,7 @@ public class AnalisisRegistros extends JFrame {
         return clientesUnicos;
     }
 
-    private List<TransaccionVenta> obtenerTransaccionesPorCliente(String cliente) {
+    public List<TransaccionVenta> obtenerTransaccionesPorCliente(String cliente) {
         List<TransaccionVenta> transaccionesPorCliente = new ArrayList<>();
         for (TransaccionVenta transaccion : obtenerTransacciones()) {
             if (transaccion.getCliente().equals(cliente)) {
@@ -167,7 +169,7 @@ public class AnalisisRegistros extends JFrame {
         return transaccionesPorCliente;
     }
 
-    private List<TransaccionVenta> obtenerTransacciones() {
+    public List<TransaccionVenta> obtenerTransacciones() {
         List<TransaccionVenta> transacciones = new ArrayList<>();
         transacciones.add(new TransaccionVenta("Chicle", 100, "Cliente1", "01/04/2024"));
         transacciones.add(new TransaccionVenta("Chocolate", 200, "Cliente2", "05/04/2024"));
@@ -179,24 +181,21 @@ public class AnalisisRegistros extends JFrame {
         return transacciones;
     }
 
-    private void agregarTransaccion() {
-        String producto = productoField.getText();
-        int cantidad = Integer.parseInt(cantidadField.getText());
-        String cliente = clienteField.getText();
-        String fecha = fechaField.getText();
+    public void agregarTransaccion(String producto, int cantidad, String cliente, String fecha) {
+        if (producto != null && !producto.isEmpty() && cliente != null && !cliente.isEmpty() && fecha != null && !fecha.isEmpty()) {
+            TransaccionVenta transaccion = new TransaccionVenta(producto, cantidad, cliente, fecha);
+            tableModel.addRow(new Object[]{transaccion.getProducto(), transaccion.getCantidad(),
+                    transaccion.getCliente(), transaccion.getFecha()});
 
-        TransaccionVenta transaccion = new TransaccionVenta(producto, cantidad, cliente, fecha);
-        tableModel.addRow(new Object[]{transaccion.getProducto(), transaccion.getCantidad(),
-                transaccion.getCliente(), transaccion.getFecha()});
-
-        // Si la nueva transacción coincide con el filtro actual, también la mostramos
-        String clienteSeleccionado = (String) filtroClienteComboBox.getSelectedItem();
-        if (clienteSeleccionado != null && clienteSeleccionado.equals(cliente)) {
-            mostrarTransacciones(obtenerTransaccionesPorCliente(clienteSeleccionado));
+            // Si la nueva transacción coincide con el filtro actual, también la mostramos
+            String clienteSeleccionado = (String) filtroClienteComboBox.getSelectedItem();
+            if (clienteSeleccionado != null && clienteSeleccionado.equals(cliente)) {
+                mostrarTransacciones(obtenerTransaccionesPorCliente(clienteSeleccionado));
+            }
         }
     }
 
-    private void eliminarTransaccion() {
+    public void eliminarTransaccion() {
         int filaSeleccionada = transaccionesTable.getSelectedRow();
         if (filaSeleccionada != -1) {
             tableModel.removeRow(filaSeleccionada);
