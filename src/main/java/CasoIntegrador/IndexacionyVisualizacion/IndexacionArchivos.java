@@ -9,14 +9,18 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 public class IndexacionArchivos extends JFrame {
-    private DefaultTableModel tableModel;
+    DefaultTableModel tableModel;
+    JPanel contentPane;
+    JTable table;
+    JScrollPane scrollPane;
+    JButton indexarButton;
 
     public IndexacionArchivos() {
         setTitle("Indexación y Visualización de Archivos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 400));
 
-        JPanel contentPane = new JPanel();
+        contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setLayout(new BorderLayout());
 
@@ -26,12 +30,12 @@ public class IndexacionArchivos extends JFrame {
         tableModel.addColumn("Ruta");
 
         // Creamos la tabla y le asignamos el modelo
-        JTable table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
+        table = new JTable(tableModel);
+        scrollPane = new JScrollPane(table);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
         // Botón para iniciar la indexación y visualización de archivos
-        JButton indexarButton = new JButton("Indexar y Visualizar Archivos");
+        indexarButton = new JButton("Indexar y Visualizar Archivos");
         indexarButton.addActionListener(e -> indexarYVisualizarArchivos());
         contentPane.add(indexarButton, BorderLayout.NORTH);
 
@@ -40,7 +44,7 @@ public class IndexacionArchivos extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void indexarYVisualizarArchivos() {
+    public void indexarYVisualizarArchivos() {
         // Limpiamos el modelo de la tabla
         tableModel.setRowCount(0);
 
@@ -57,7 +61,7 @@ public class IndexacionArchivos extends JFrame {
         }
     }
 
-    private void explorarDirectorio(Path directorio) throws IOException {
+    public void explorarDirectorio(Path directorio) throws IOException {
         Files.walkFileTree(directorio, new SimpleFileVisitor<Path>() {
             @Override
             public FileVisitResult visitFile(Path archivo, BasicFileAttributes attrs) throws IOException {
@@ -75,7 +79,7 @@ public class IndexacionArchivos extends JFrame {
         });
     }
 
-    private String obtenerDirectorioRaiz() {
+    public String obtenerDirectorioRaiz() {
         // Obtener la ruta del directorio actual del proyecto
         String rutaProyecto = System.getProperty("user.dir");
 
