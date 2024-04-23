@@ -1,7 +1,5 @@
 package CasoIntegrador.DatosDinamicos;
 
-import CasoIntegrador.AnalisisyOrganizacion.Busqueda;
-
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -87,7 +85,7 @@ public class GUI extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 String nombreInput = JOptionPane.showInputDialog("Ingrese el nombre a buscar");
                 if (nombreInput != null) {
-                    int idEncontrado = Busqueda.buscarIdPorNombreEnLista(listaDatos, nombreInput);
+                    int idEncontrado = Buscar.buscarIdPorNombreEnLista(listaDatos, nombreInput);
                     if (idEncontrado != -1) {
                         JOptionPane.showMessageDialog(GUI.this, "El ID asociado a " + nombreInput + " es: " + idEncontrado);
                     } else {
@@ -129,6 +127,17 @@ public class GUI extends JFrame {
 
     public static void main(String[] args) {
         new GUI();
+    }
+
+    public static class Buscar {
+        public static int buscarIdPorNombreEnLista(ListaDatos listaDatos, String nombre) {
+            for (Pareja<Integer, String> pareja : listaDatos.getDatosPares()) {
+                if (pareja.getSegundoElemento().equals(nombre)) {
+                    return pareja.getPrimerElemento();
+                }
+            }
+            return -1; // Si no se encuentra el nombre, devolvemos -1
+        }
     }
 }
 
