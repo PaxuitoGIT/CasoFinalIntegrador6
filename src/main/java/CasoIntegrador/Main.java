@@ -1,5 +1,6 @@
 package CasoIntegrador;
 
+import CasoIntegrador.AnalisisyOrganizacion.Busqueda;
 import CasoIntegrador.DatosDinamicos.ListaDatos;
 import CasoIntegrador.DatosDinamicos.Pareja;
 
@@ -17,7 +18,7 @@ public class Main extends JFrame {
     JTextField txtId, txtNombre, txtVentas;
     JTable tabMain;
     DefaultTableModel dtmMain;
-    JButton btnAgregar, btnEliminar, btnModificar;
+    JButton btnAgregar, btnEliminar, btnModificar, btnBuscar;
 
     ListaDatos listaDatos = new ListaDatos();
 
@@ -35,6 +36,7 @@ public class Main extends JFrame {
         btnAgregar = new JButton("Agregar");
         btnEliminar = new JButton("Eliminar");
         btnModificar = new JButton("Modificar");
+        btnBuscar = new JButton("Buscar");
 
         panNorth.add(lblId);
         panNorth.add(txtId);
@@ -45,6 +47,7 @@ public class Main extends JFrame {
         panNorth.add(btnAgregar);
         panNorth.add(btnModificar);
         panNorth.add(btnEliminar);
+        panNorth.add(btnBuscar);
 
         dtmMain = new DefaultTableModel();
         tabMain = new JTable(dtmMain);
@@ -64,8 +67,7 @@ public class Main extends JFrame {
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Pareja<Integer, Integer> pareja = new Pareja<>(Integer.parseInt(txtId.getText()), Integer.parseInt(txtVentas.getText()));
-
+                Pareja<Integer, String> pareja = new Pareja<>(Integer.parseInt(txtId.getText()), txtNombre.getText());
                 listaDatos.agregarDatoPar(pareja);
                 Vector row = new Vector();
                 row.add(txtId.getText());
@@ -76,6 +78,21 @@ public class Main extends JFrame {
                 txtNombre.setText("");
                 txtVentas.setText("");
                 txtId.requestFocus();
+            }
+        });
+
+        btnBuscar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String nombreInput = JOptionPane.showInputDialog("Ingrese el nombre a buscar");
+                if (nombreInput != null) {
+                    int idEncontrado = Busqueda.buscarIdPorNombreEnLista(listaDatos, nombreInput);
+                    if (idEncontrado != -1) {
+                        JOptionPane.showMessageDialog(Main.this, "El ID asociado a " + nombreInput + " es: " + idEncontrado);
+                    } else {
+                        JOptionPane.showMessageDialog(Main.this, "No se encontró ningún registro con el nombre: " + nombreInput);
+                    }
+                }
             }
         });
 

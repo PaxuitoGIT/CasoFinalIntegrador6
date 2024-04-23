@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ListaDatos {
     private List<Double> datosReales;
-    private List<Pareja<Integer, Integer>> datosPares;
+    private List<Pareja<Integer, String>> datosPares;
 
     public ListaDatos() {
         this.datosReales = new ArrayList<>();
@@ -24,15 +24,15 @@ public class ListaDatos {
         datosReales.set(index, dato);
     }
 
-    public void agregarDatoPar(Pareja<Integer, Integer> dato) {
+    public void agregarDatoPar(Pareja<Integer, String> dato) {
         datosPares.add(dato);
     }
 
-    public void eliminarDatoPar(Pareja<Integer, Integer> dato) {
+    public void eliminarDatoPar(Pareja<Integer, String> dato) {
         datosPares.remove(dato);
     }
 
-    public void modificarDatoPar(int index, Pareja<Integer, Integer> dato) {
+    public void modificarDatoPar(int index, Pareja<Integer, String> dato) {
         datosPares.set(index, dato);
     }
 
@@ -44,11 +44,11 @@ public class ListaDatos {
         this.datosReales = datosReales;
     }
 
-    public List<Pareja<Integer, Integer>> getDatosPares() {
+    public List<Pareja<Integer, String>> getDatosPares() {
         return datosPares;
     }
 
-    public void setDatosPares(List<Pareja<Integer, Integer>> datosPares) {
+    public void setDatosPares(List<Pareja<Integer, String>> datosPares) {
         this.datosPares = datosPares;
     }
 }
