@@ -35,4 +35,20 @@ public class ListaDatos {
     public void modificarDatoPar(int index, Pareja<Integer, Integer> dato) {
         datosPares.set(index, dato);
     }
+
+    public List<Double> getDatosReales() {
+        return datosReales;
+    }
+
+    public void setDatosReales(List<Double> datosReales) {
+        this.datosReales = datosReales;
+    }
+
+    public List<Pareja<Integer, Integer>> getDatosPares() {
+        return datosPares;
+    }
+
+    public void setDatosPares(List<Pareja<Integer, Integer>> datosPares) {
+        this.datosPares = datosPares;
+    }
 }
