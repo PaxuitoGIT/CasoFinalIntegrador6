@@ -10,12 +10,12 @@ import java.util.*;
 import java.util.List;
 
 public class OrdenacionYBusqueda extends JFrame {
-    private JTable nombresTable;
-    private JTable ventasTable;
-    private DefaultTableModel nombresTableModel;
-    private DefaultTableModel ventasTableModel;
-    private boolean ordenarPorProducto = true;
-    private boolean ordenarNombresAscendente = true;
+     JTable nombresTable;
+     JTable ventasTable;
+     DefaultTableModel nombresTableModel;
+     DefaultTableModel ventasTableModel;
+     boolean ordenarPorProducto = true;
+     boolean ordenarNombresAscendente = true;
 
     public OrdenacionYBusqueda() {
         setTitle("Ordenación y Búsqueda");
@@ -41,7 +41,7 @@ public class OrdenacionYBusqueda extends JFrame {
         agregarNombreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agregarNombre();
+                agregarNombre(JOptionPane.showInputDialog("Ingrese un nombre:"));
             }
         });
         nombresPanel.add(agregarNombreButton, BorderLayout.SOUTH);
@@ -73,7 +73,7 @@ public class OrdenacionYBusqueda extends JFrame {
         agregarVentaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                agregarVenta();
+                agregarVenta(JOptionPane.showInputDialog("Ingrese un producto:"), Integer.parseInt(JOptionPane.showInputDialog("Ingrese una cantidad:")));
             }
         });
         ventasPanel.add(agregarVentaButton, BorderLayout.SOUTH);
@@ -98,7 +98,10 @@ public class OrdenacionYBusqueda extends JFrame {
         inicializarVentas();
     }
 
-    private void inicializarNombres() {
+    public DefaultTableModel getNombresTableModel() {
+        return nombresTableModel;
+    }
+    public void inicializarNombres() {
         TreeSet<String> nombres = new TreeSet<>();
         nombres.add("Juan");
         nombres.add("María");
@@ -112,7 +115,7 @@ public class OrdenacionYBusqueda extends JFrame {
         }
     }
 
-    private void inicializarVentas() {
+    public void inicializarVentas() {
         List<Venta> ventas = new ArrayList<>();
         ventas.add(new Venta("BMW", 100));
         ventas.add(new Venta("Mercedes", 200));
@@ -126,41 +129,30 @@ public class OrdenacionYBusqueda extends JFrame {
         }
     }
 
-    private void agregarNombre() {
-        String nombre = JOptionPane.showInputDialog("Ingrese un nombre:");
+    public void agregarNombre(String nombre) {
         if (nombre != null && !nombre.isEmpty()) {
             nombresTableModel.addRow(new Object[]{nombre});
             ordenarNombres();
         }
     }
 
-    private void agregarVenta() {
-        String producto = JOptionPane.showInputDialog("Ingrese el nombre del producto:");
-        if (producto != null && !producto.isEmpty()) {
-            String cantidadStr = JOptionPane.showInputDialog("Ingrese la cantidad:");
-            if (cantidadStr != null && !cantidadStr.isEmpty()) {
-                try {
-                    int cantidad = Integer.parseInt(cantidadStr);
-                    ventasTableModel.addRow(new Object[]{producto, cantidad});
-                    ordenarVentas();
-                } catch (NumberFormatException e) {
-                    JOptionPane.showMessageDialog(this, "La cantidad debe ser un número entero.", "Error", JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
+    public void agregarVenta(String producto, int cantidad) {
+        ventasTableModel.addRow(new Object[]{producto, cantidad});
+        ordenarVentas();
     }
 
-    private void cambiarOrdenNombres() {
+
+    public void cambiarOrdenNombres() {
         ordenarNombresAscendente = !ordenarNombresAscendente;
         ordenarNombres();
     }
 
-    private void cambiarOrdenVentas() {
+    public void cambiarOrdenVentas() {
         ordenarPorProducto = !ordenarPorProducto;
         ordenarVentas();
     }
 
-    private void ordenarNombres() {
+    public void ordenarNombres() {
         List<String> nombres = new ArrayList<>();
         for (int i = 0; i < nombresTableModel.getRowCount(); i++) {
             nombres.add((String) nombresTableModel.getValueAt(i, 0));
@@ -175,7 +167,7 @@ public class OrdenacionYBusqueda extends JFrame {
         }
     }
 
-    private void ordenarVentas() {
+    public void ordenarVentas() {
         List<Object[]> ventas = new ArrayList<>();
         for (int i = 0; i < ventasTableModel.getRowCount(); i++) {
             Object[] venta = new Object[]{ventasTableModel.getValueAt(i, 0), ventasTableModel.getValueAt(i, 1)};
