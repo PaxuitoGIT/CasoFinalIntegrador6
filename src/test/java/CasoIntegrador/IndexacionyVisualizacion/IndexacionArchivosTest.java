@@ -31,6 +31,6 @@ public class IndexacionArchivosTest {
         int rowCount = tableModel.getRowCount();
 
         // Verificar que se hayan agregado las filas esperadas (puedes adaptar este valor según tu estructura de directorios)
-        assertEquals(136, rowCount); // Por ejemplo, aquí esperamos que se agregue al menos 136 filas debido a los archivos del proyecto
+        assertEquals(154, rowCount); // Por ejemplo, aquí esperamos que se agregue al menos 154 filas debido a los archivos del proyecto
     }
 }

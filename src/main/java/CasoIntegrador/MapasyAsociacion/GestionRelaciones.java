@@ -8,15 +8,19 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestionRelaciones extends JFrame {
-    private DefaultTableModel tableModel;
-    private Map<Integer, Character> relaciones;
+    JPanel contentPane;
+    DefaultTableModel tableModel;
+    JTable table;
+    JScrollPane scrollPane;
+    JButton agregarRelacionButton, buscarRelacionButton;
+    Map<Integer, Character> relaciones;
 
     public GestionRelaciones() {
         setTitle("Gestión de Relaciones");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(400, 300));
 
-        JPanel contentPane = new JPanel();
+        contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setLayout(new BorderLayout());
 
@@ -29,17 +33,17 @@ public class GestionRelaciones extends JFrame {
         tableModel.addColumn("Letra");
 
         // Creamos la tabla y le asignamos el modelo
-        JTable table = new JTable(tableModel);
-        JScrollPane scrollPane = new JScrollPane(table);
+        table = new JTable(tableModel);
+        scrollPane = new JScrollPane(table);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
         // Botón para agregar una nueva relación
-        JButton agregarRelacionButton = new JButton("Agregar Relación");
+        agregarRelacionButton = new JButton("Agregar Relación");
         agregarRelacionButton.addActionListener(e -> agregarRelacion());
         contentPane.add(agregarRelacionButton, BorderLayout.SOUTH);
 
         // Botón para buscar una relación por número
-        JButton buscarRelacionButton = new JButton("Buscar Relación");
+        buscarRelacionButton = new JButton("Buscar Relación");
         buscarRelacionButton.addActionListener(e -> buscarRelacion());
         contentPane.add(buscarRelacionButton, BorderLayout.NORTH);
 
@@ -48,7 +52,7 @@ public class GestionRelaciones extends JFrame {
         setLocationRelativeTo(null);
     }
 
-    private void agregarRelacion() {
+    public void agregarRelacion() {
         // Ventana de diálogo para ingresar el número y la letra
         String numeroStr = JOptionPane.showInputDialog("Ingrese un número:");
         String letra = JOptionPane.showInputDialog("Ingrese una letra:");
@@ -67,7 +71,7 @@ public class GestionRelaciones extends JFrame {
         }
     }
 
-    private void buscarRelacion() {
+    public void buscarRelacion() {
         // Ventana de diálogo para ingresar el número a buscar
         String numeroStr = JOptionPane.showInputDialog("Ingrese el número a buscar:");
         if (numeroStr != null && !numeroStr.isEmpty()) {
@@ -86,7 +90,7 @@ public class GestionRelaciones extends JFrame {
         }
     }
 
-    private void actualizarTabla() {
+    public void actualizarTabla() {
         // Limpiamos el modelo de la tabla
         tableModel.setRowCount(0);
         // Agregamos las relaciones del HashMap al modelo de la tabla
