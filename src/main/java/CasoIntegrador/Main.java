@@ -5,6 +5,7 @@ import CasoIntegrador.DatosDinamicos.Pareja;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +48,9 @@ public class Main extends JFrame {
 
         dtmMain = new DefaultTableModel();
         tabMain = new JTable(dtmMain);
+
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtmMain);
+        tabMain.setRowSorter(sorter);
 
         dtmMain.addColumn("ID");
         dtmMain.addColumn("Nombre");
