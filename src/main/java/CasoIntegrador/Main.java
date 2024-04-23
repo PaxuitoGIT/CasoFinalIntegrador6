@@ -10,6 +10,7 @@ import javax.swing.table.TableRowSorter;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Comparator;
 import java.util.Vector;
 
 public class Main extends JFrame {
@@ -49,15 +50,17 @@ public class Main extends JFrame {
         panNorth.add(btnEliminar);
         panNorth.add(btnBuscar);
 
-        dtmMain = new DefaultTableModel();
+        dtmMain = new DefaultTableModel() {};
         tabMain = new JTable(dtmMain);
-
-        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtmMain);
-        tabMain.setRowSorter(sorter);
 
         dtmMain.addColumn("ID");
         dtmMain.addColumn("Nombre");
         dtmMain.addColumn("Ventas");
+
+        TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtmMain);
+        sorter.setComparator(0, Comparator.comparingInt(str -> Integer.parseInt((String) str))); //Soluciona la ordenación por ID
+        tabMain.setRowSorter(sorter);
+
 
         setTitle("Tabla de Ventas");
         setSize(500,500);
