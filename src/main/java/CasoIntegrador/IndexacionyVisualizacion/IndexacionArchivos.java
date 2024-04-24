@@ -6,7 +6,6 @@ import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.io.IOException;
 import java.nio.file.*;
-import java.nio.file.attribute.BasicFileAttributes;
 
 public class IndexacionArchivos extends JFrame {
     // Variables de instancia para los componentes de la interfaz
@@ -66,21 +65,17 @@ public class IndexacionArchivos extends JFrame {
     }
 
     public void explorarDirectorio(Path directorio) throws IOException {
-        Files.walkFileTree(directorio, new SimpleFileVisitor<Path>() {
-            @Override
-            public FileVisitResult visitFile(Path archivo, BasicFileAttributes attrs) throws IOException {
-                // Agregar el archivo y su ruta al modelo de la tabla
-                tableModel.addRow(new Object[]{archivo.getFileName(), archivo.toAbsolutePath()});
-                return FileVisitResult.CONTINUE;
-            }
-
-            @Override
-            public FileVisitResult visitFileFailed(Path archivo, IOException exc) throws IOException {
-                // Si hay errores al acceder al archivo, mostrar un mensaje de error
-                JOptionPane.showMessageDialog(IndexacionArchivos.this, "Error al acceder al archivo: " + archivo.toString() + "\n" + exc.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                return FileVisitResult.CONTINUE;
-            }
-        });
+        Files.list(directorio)
+                .sorted() // Ordenar alfabéticamente
+                .forEach(archivo -> {
+                    try {
+                        // Agregar el archivo y su ruta al modelo de la tabla
+                        tableModel.addRow(new Object[]{archivo.getFileName(), archivo.toAbsolutePath()});
+                    } catch (Exception e) {
+                        // Manejar cualquier excepción que ocurra al agregar el archivo
+                        e.printStackTrace();
+                    }
+                });
     }
 
     public String obtenerDirectorioRaiz() {
