@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.List;
 
 public class AnalisisRegistros extends JFrame {
+    // Variables de instancia para los componentes de la interfaz
      JComboBox<String> filtroClienteComboBox;
      JTable transaccionesTable;
      JPanel contentPane, controlPanel, agregarPanel, filtrarPanel;
@@ -19,35 +20,44 @@ public class AnalisisRegistros extends JFrame {
      DefaultTableModel tableModel;
      JTextField productoField, cantidadField, clienteField, fechaField;
 
+     // Constructor de la clase
     public AnalisisRegistros() {
+        // Configuración de la ventana principal
         setTitle("Análisis de Registros de Ventas");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(800, 600));
 
+        // Creación del panel principal y configuración de los bordes
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setLayout(new BorderLayout());
 
+        // Creación del modelo de la tabla
         tableModel = new DefaultTableModel();
         tableModel.addColumn("Producto");
         tableModel.addColumn("Cantidad");
         tableModel.addColumn("Cliente");
         tableModel.addColumn("Fecha");
 
+        // Creación de la tabla y asignación del modelo
         transaccionesTable = new JTable(tableModel);
         scrollPane = new JScrollPane(transaccionesTable);
         contentPane.add(scrollPane, BorderLayout.CENTER);
 
+        // Creación del panel de control y configuración del layout
         controlPanel = new JPanel();
         controlPanel.setLayout(new BorderLayout());
 
+        // Creación del panel para filtrar transacciones por cliente
         filtrarPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
         filtroClienteLabel = new JLabel("Filtrar por Cliente:");
         filtrarPanel.add(filtroClienteLabel);
 
+        // Creación del combo box para seleccionar el cliente a filtrar
         filtroClienteComboBox = new JComboBox<>();
         filtrarPanel.add(filtroClienteComboBox);
 
+        // Botón para aplicar el filtro
         filtrarButton = new JButton("Filtrar");
         filtrarButton.addActionListener(new ActionListener() {
             @Override
@@ -57,6 +67,7 @@ public class AnalisisRegistros extends JFrame {
         });
         filtrarPanel.add(filtrarButton);
 
+        // Botón para mostrar todas las transacciones
         mostrarTodoButton = new JButton("Mostrar Todo");
         mostrarTodoButton.addActionListener(new ActionListener() {
             @Override
@@ -66,8 +77,10 @@ public class AnalisisRegistros extends JFrame {
         });
         filtrarPanel.add(mostrarTodoButton);
 
+        // Agregar el panel de filtrado al panel de control
         controlPanel.add(filtrarPanel, BorderLayout.NORTH);
 
+        // Creación de los paneles
         agregarPanel = new JPanel(new GridLayout(5, 2, 6, 5));
         productoLabel = new JLabel("Producto:");
         agregarPanel.add(productoLabel);
@@ -89,6 +102,7 @@ public class AnalisisRegistros extends JFrame {
         fechaField = new JTextField();
         agregarPanel.add(fechaField);
 
+        // Botón para agregar el registro
         agregarButton = new JButton("Agregar");
         agregarButton.addActionListener(new ActionListener() {
             @Override
@@ -99,6 +113,7 @@ public class AnalisisRegistros extends JFrame {
         });
         agregarPanel.add(agregarButton);
 
+        // Botón para eliminar el registro seleccionado
         eliminarButton = new JButton("Eliminar");
         eliminarButton.addActionListener(new ActionListener() {
             @Override
@@ -126,6 +141,7 @@ public class AnalisisRegistros extends JFrame {
         mostrarTodasTransacciones();
     }
 
+    // La lógica de mostrar transacciones
     public void mostrarTodasTransacciones() {
         List<TransaccionVenta> transacciones = obtenerTransacciones();
         mostrarTransacciones(transacciones);
@@ -139,6 +155,7 @@ public class AnalisisRegistros extends JFrame {
         }
     }
 
+    // La lógica de filtrar transacciones
     public void filtrarTransacciones() {
         String clienteSeleccionado = (String) filtroClienteComboBox.getSelectedItem();
         if (clienteSeleccionado != null && !clienteSeleccionado.isEmpty()) {
@@ -169,6 +186,7 @@ public class AnalisisRegistros extends JFrame {
         return transaccionesPorCliente;
     }
 
+    // Ejemplo de datos de transacciones
     public List<TransaccionVenta> obtenerTransacciones() {
         List<TransaccionVenta> transacciones = new ArrayList<>();
         transacciones.add(new TransaccionVenta("Chicle", 100, "Cliente1", "01/04/2024"));
@@ -181,6 +199,7 @@ public class AnalisisRegistros extends JFrame {
         return transacciones;
     }
 
+    // Métodos para agregar y eliminar transacciones
     public void agregarTransaccion(String producto, int cantidad, String cliente, String fecha) {
         if (producto != null && !producto.isEmpty() && cliente != null && !cliente.isEmpty() && fecha != null && !fecha.isEmpty()) {
             TransaccionVenta transaccion = new TransaccionVenta(producto, cantidad, cliente, fecha);

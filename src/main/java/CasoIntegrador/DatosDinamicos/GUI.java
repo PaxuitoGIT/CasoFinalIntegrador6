@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.Vector;
 
 public class GUI extends JFrame {
+    // Variables de instancia para los componentes de la interfaz
     JPanel panNorth;
     JLabel lblId, lblNombre, lblVentas;
     JTextField txtId, txtNombre, txtVentas;
@@ -19,9 +20,11 @@ public class GUI extends JFrame {
 
     ListaDatos listaDatos = new ListaDatos();
 
+    // Constructor de la clase
     public GUI() {
         panNorth = new JPanel(new GridLayout(5, 2));
 
+        // Creación de los componentes de la interfaz
         lblId = new JLabel("ID:");
         lblNombre = new JLabel("Nombre:");
         lblVentas = new JLabel("Ventas:");
@@ -35,6 +38,7 @@ public class GUI extends JFrame {
         btnModificar = new JButton("Modificar");
         btnBuscar = new JButton("Buscar");
 
+        // Agregamos los componentes al panel
         panNorth.add(lblId);
         panNorth.add(txtId);
         panNorth.add(lblNombre);
@@ -46,6 +50,7 @@ public class GUI extends JFrame {
         panNorth.add(btnEliminar);
         panNorth.add(btnBuscar);
 
+        // Creación del modelo de la tabla
         dtmMain = new DefaultTableModel() {};
         tabMain = new JTable(dtmMain);
 
@@ -53,6 +58,7 @@ public class GUI extends JFrame {
         dtmMain.addColumn("Nombre");
         dtmMain.addColumn("Ventas");
 
+        // Agregamos un ordenador a la tabla que si se pincha en la cabecera de la columna, ordene
         TableRowSorter<DefaultTableModel> sorter = new TableRowSorter<>(dtmMain);
         sorter.setComparator(0, Comparator.naturalOrder());
         tabMain.setRowSorter(sorter);
@@ -63,6 +69,9 @@ public class GUI extends JFrame {
         setLocation(100,100);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+        // Acciones de los botones
+
+        // Acción del botón agregar que agrega un nuevo registro a la tabla y a la lista de datos
         btnAgregar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -80,6 +89,7 @@ public class GUI extends JFrame {
             }
         });
 
+        // Acción del botón buscar que busca un nombre en la lista de datos y muestra el ID asociado (no usa hashmap)
         btnBuscar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -95,6 +105,7 @@ public class GUI extends JFrame {
             }
         });
 
+        // Acción del botón modificar que modifica un registro de la tabla y de la lista de datos
         btnModificar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -109,6 +120,7 @@ public class GUI extends JFrame {
             }
         });
 
+        // Acción del botón eliminar que elimina un registro de la tabla y de la lista de datos
         btnEliminar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -129,6 +141,7 @@ public class GUI extends JFrame {
         new GUI();
     }
 
+    // Clase interna para buscar un ID por nombre en una lista de datos
     public static class Buscar {
         public static int buscarIdPorNombreEnLista(ListaDatos listaDatos, String nombre) {
             for (Pareja<Integer, String> pareja : listaDatos.getDatosPares()) {

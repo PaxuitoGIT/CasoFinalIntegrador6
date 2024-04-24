@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GestionRelaciones extends JFrame {
+    // Variables de instancia para los componentes de la interfaz
     JPanel contentPane;
     DefaultTableModel tableModel;
     JTable table;
@@ -15,7 +16,9 @@ public class GestionRelaciones extends JFrame {
     JButton agregarRelacionButton, buscarRelacionButton;
     Map<Integer, Character> relaciones;
 
+    // Constructor de la clase
     public GestionRelaciones() {
+        // Configuración de la ventana principal
         setTitle("Gestión de Relaciones");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(400, 300));
@@ -52,6 +55,7 @@ public class GestionRelaciones extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    // Método para agregar una nueva relación al HashMap
     public void agregarRelacion() {
         // Ventana de diálogo para ingresar el número y la letra
         String numeroStr = JOptionPane.showInputDialog("Ingrese un número:");
@@ -71,6 +75,7 @@ public class GestionRelaciones extends JFrame {
         }
     }
 
+    // Método para buscar una relación por número
     public void buscarRelacion() {
         // Ventana de diálogo para ingresar el número a buscar
         String numeroStr = JOptionPane.showInputDialog("Ingrese el número a buscar:");
@@ -90,6 +95,7 @@ public class GestionRelaciones extends JFrame {
         }
     }
 
+    // Método para actualizar la tabla con los datos del HashMap
     public void actualizarTabla() {
         // Limpiamos el modelo de la tabla
         tableModel.setRowCount(0);

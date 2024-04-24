@@ -1,18 +1,17 @@
 package CasoIntegrador.AnalisisyOrganizacion;
 
 class TransaccionVenta {
-    String producto;
+    String producto, cliente, fecha;
     int cantidad;
-    String cliente;
-    String fecha;
 
+    // Constructor de la clase TransaccionVenta
     public TransaccionVenta(String producto, int cantidad, String cliente, String fecha) {
         this.producto = producto;
         this.cantidad = cantidad;
         this.cliente = cliente;
         this.fecha = fecha;
     }
-
+// Getters de la clase TransaccionVenta
     public String getProducto() {
         return producto;
     }

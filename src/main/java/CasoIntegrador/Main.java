@@ -13,21 +13,28 @@ import java.awt.event.ActionListener;
 
 public class Main extends JFrame {
 
+    // Variables de instancia para los componentes de la interfaz
     private IndexacionArchivos indexacionArchivos;
     private OrdenacionYBusqueda ordenacionYBusqueda;
     private GUI datosDinamicos;
     private AnalisisRegistros analisisRegistros;
     private GestionRelaciones gestionRelaciones;
 
+    JPanel contentPane;
+    JButton indexacionButton, ordenacionButton, datosDinamicosButton, analisisRegistrosButton, gestionRelacionesButton;
+
+    // Constructor de la clase
     public Main() {
+        // Configuración de la ventana principal
         setTitle("Menú Principal");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(400, 300));
 
-        JPanel contentPane = new JPanel();
+        contentPane = new JPanel();
         contentPane.setLayout(new GridLayout(5, 1));
 
-        JButton indexacionButton = new JButton("Indexación y Visualización");
+        // Botones para abrir las diferentes opciones del menú
+        indexacionButton = new JButton("Indexación y Visualización");
         indexacionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 abrirIndexacionArchivos();
@@ -35,7 +42,7 @@ public class Main extends JFrame {
         });
         contentPane.add(indexacionButton);
 
-        JButton ordenacionButton = new JButton("Ordenación y Búsqueda");
+        ordenacionButton = new JButton("Ordenación y Búsqueda");
         ordenacionButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 abrirOrdenacionYBusqueda();
@@ -43,7 +50,7 @@ public class Main extends JFrame {
         });
         contentPane.add(ordenacionButton);
 
-        JButton datosDinamicosButton = new JButton("Datos Dinámicos");
+        datosDinamicosButton = new JButton("Datos Dinámicos");
         datosDinamicosButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 abrirDatosDinamicos();
@@ -51,7 +58,7 @@ public class Main extends JFrame {
         });
         contentPane.add(datosDinamicosButton);
 
-        JButton analisisRegistrosButton = new JButton("Análisis de Registros");
+        analisisRegistrosButton = new JButton("Análisis de Registros");
         analisisRegistrosButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 abrirAnalisisRegistros();
@@ -59,7 +66,7 @@ public class Main extends JFrame {
         });
         contentPane.add(analisisRegistrosButton);
 
-        JButton gestionRelacionesButton = new JButton("Gestión de Relaciones");
+        gestionRelacionesButton = new JButton("Gestión de Relaciones");
         gestionRelacionesButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 abrirGestionRelaciones();
@@ -72,6 +79,7 @@ public class Main extends JFrame {
         setLocationRelativeTo(null);
     }
 
+    // Métodos para abrir las diferentes opciones del menú
     private void abrirIndexacionArchivos() {
         if (indexacionArchivos == null) {
             indexacionArchivos = new IndexacionArchivos();
@@ -117,7 +125,7 @@ public class Main extends JFrame {
         SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 Main main = new Main();
-                main.setVisible(true);
+                main.setVisible(true); // Mostrar la ventana principal del menú
             }
         });
     }

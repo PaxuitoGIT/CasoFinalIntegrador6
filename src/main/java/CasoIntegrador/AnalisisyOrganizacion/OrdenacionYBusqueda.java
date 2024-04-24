@@ -10,6 +10,7 @@ import java.util.*;
 import java.util.List;
 
 public class OrdenacionYBusqueda extends JFrame {
+    // Variables de instancia para los componentes de la interfaz
      JTable nombresTable, ventasTable;
      JPanel contentPane, nombresPanel, ventasPanel;
      JScrollPane nombresScrollPane, ventasScrollPane;
@@ -17,11 +18,14 @@ public class OrdenacionYBusqueda extends JFrame {
      boolean ordenarPorProducto, ordenarNombresAscendente = true;
      JButton agregarNombreButton, cambiarOrdenNombresButton, agregarVentaButton, cambiarOrdenVentasButton;
 
+    // Constructor de la clase
     public OrdenacionYBusqueda() {
+        // Configuración de la ventana principal
         setTitle("Ordenación y Búsqueda");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 300));
 
+        // Creación del panel principal y configuración de los bordes
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setLayout(new GridLayout(1, 2));
@@ -37,6 +41,7 @@ public class OrdenacionYBusqueda extends JFrame {
         nombresScrollPane = new JScrollPane(nombresTable);
         nombresPanel.add(nombresScrollPane, BorderLayout.CENTER);
 
+        // Botón para agregar un nuevo nombre
         agregarNombreButton = new JButton("Agregar Nombre");
         agregarNombreButton.addActionListener(new ActionListener() {
             @Override
@@ -46,6 +51,7 @@ public class OrdenacionYBusqueda extends JFrame {
         });
         nombresPanel.add(agregarNombreButton, BorderLayout.SOUTH);
 
+        // Botón para cambiar el orden de los nombres
         cambiarOrdenNombresButton = new JButton("Cambiar Orden");
         cambiarOrdenNombresButton.addActionListener(new ActionListener() {
             @Override
@@ -69,6 +75,7 @@ public class OrdenacionYBusqueda extends JFrame {
         ventasScrollPane = new JScrollPane(ventasTable);
         ventasPanel.add(ventasScrollPane, BorderLayout.CENTER);
 
+        // Botón para agregar una nueva venta
         agregarVentaButton = new JButton("Agregar Venta");
         agregarVentaButton.addActionListener(new ActionListener() {
             @Override
@@ -78,6 +85,7 @@ public class OrdenacionYBusqueda extends JFrame {
         });
         ventasPanel.add(agregarVentaButton, BorderLayout.SOUTH);
 
+        // Botón para cambiar el orden de las ventas
         cambiarOrdenVentasButton = new JButton("Cambiar Orden");
         cambiarOrdenVentasButton.addActionListener(new ActionListener() {
             @Override
@@ -101,6 +109,7 @@ public class OrdenacionYBusqueda extends JFrame {
     public DefaultTableModel getNombresTableModel() {
         return nombresTableModel;
     }
+    // Nombres de ejemplo que se muestran en la tabla y se ordenan mediante el TreeSet
     public void inicializarNombres() {
         TreeSet<String> nombres = new TreeSet<>();
         nombres.add("Juan");
@@ -115,6 +124,7 @@ public class OrdenacionYBusqueda extends JFrame {
         }
     }
 
+    // Ventas de ejemplo que se muestran en la tabla y se ordenan mediante una lista
     public void inicializarVentas() {
         List<Venta> ventas = new ArrayList<>();
         ventas.add(new Venta("BMW", 100));
@@ -152,6 +162,7 @@ public class OrdenacionYBusqueda extends JFrame {
         ordenarVentas();
     }
 
+    // Método para ordenar los nombres de la tabla si se introducen nuevos nombres
     public void ordenarNombres() {
         List<String> nombres = new ArrayList<>();
         for (int i = 0; i < nombresTableModel.getRowCount(); i++) {
@@ -167,6 +178,7 @@ public class OrdenacionYBusqueda extends JFrame {
         }
     }
 
+    // Método para ordenar las ventas de la tabla si se introducen nuevas ventas
     public void ordenarVentas() {
         List<Object[]> ventas = new ArrayList<>();
         for (int i = 0; i < ventasTableModel.getRowCount(); i++) {

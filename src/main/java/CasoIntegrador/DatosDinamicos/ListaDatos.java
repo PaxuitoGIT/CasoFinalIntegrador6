@@ -4,14 +4,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ListaDatos {
-    private List<Double> datosReales;
-    private List<Pareja<Integer, String>> datosPares;
+    // Variables de instancia para los datos reales y los datos pares
+     List<Double> datosReales;
+     List<Pareja<Integer, String>> datosPares;
 
+     // Constructor de la clase
     public ListaDatos() {
         this.datosReales = new ArrayList<>();
         this.datosPares = new ArrayList<>();
     }
 
+    // Métodos para agregar, eliminar y modificar datos
     public void agregarDatoReal(Double dato) {
         datosReales.add(dato);
     }
@@ -36,6 +39,8 @@ public class ListaDatos {
         datosPares.set(index, dato);
     }
 
+
+    // Getters y Setters de la clase
     public List<Double> getDatosReales() {
         return datosReales;
     }

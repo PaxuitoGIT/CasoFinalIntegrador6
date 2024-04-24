@@ -9,17 +9,21 @@ import java.nio.file.*;
 import java.nio.file.attribute.BasicFileAttributes;
 
 public class IndexacionArchivos extends JFrame {
+    // Variables de instancia para los componentes de la interfaz
     DefaultTableModel tableModel;
     JPanel contentPane;
     JTable table;
     JScrollPane scrollPane;
     JButton indexarButton;
 
+    // Constructor de la clase
     public IndexacionArchivos() {
+        // Configuración de la ventana principal
         setTitle("Indexación y Visualización de Archivos");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setPreferredSize(new Dimension(600, 400));
 
+        // Creación del panel principal y configuración de los bordes
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(10, 10, 10, 10));
         contentPane.setLayout(new BorderLayout());
@@ -81,7 +85,7 @@ public class IndexacionArchivos extends JFrame {
 
     public String obtenerDirectorioRaiz() {
         // Obtener la ruta del directorio actual del proyecto
-        String rutaProyecto = System.getProperty("user.dir");
+        String rutaProyecto = System.getProperty("user.dir"); // Directorio actual del proyecto
 
         // Mostrar un cuadro de diálogo para que el usuario seleccione el directorio raíz
         JFileChooser fileChooser = new JFileChooser(rutaProyecto);
